@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.Objects;
 
+import static dev.hoerai.identity.Constants.APP_ROLE;
 import static dev.hoerai.identity.Constants.SENSOR_ROLE;
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -26,6 +27,9 @@ public class SecurityConfiguration {
 
     private static final String SENSOR_USER = "rest.sensor.user";
     private static final String SENSOR_PASSWORD = "rest.sensor.password";
+
+    private static final String APP_USER = "rest.app.user";
+    private static final String APP_PASSWORD = "rest.app.password";
     private final Environment env;
 
     public SecurityConfiguration(Environment env) {
@@ -41,7 +45,8 @@ public class SecurityConfiguration {
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         final UserDetails sensorAppUser = createUser(SENSOR_USER, SENSOR_PASSWORD, SENSOR_ROLE);
-        return new InMemoryUserDetailsManager(sensorAppUser);
+        final UserDetails appUser = createUser(APP_USER, APP_PASSWORD, APP_ROLE);
+        return new InMemoryUserDetailsManager(sensorAppUser, appUser);
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

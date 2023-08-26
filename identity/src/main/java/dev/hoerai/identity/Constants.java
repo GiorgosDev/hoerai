@@ -12,6 +12,8 @@ public class Constants {
 
     final public static String SENSOR_ROLE = "SENSOR_ROLE";
 
+    final public static String APP_ROLE = "APP_ROLE";
+
     // Descriptions
 
     final public static String ALARM_TYPE = "Alarm type";
